@@ -8,11 +8,12 @@
 
     {!! Form::model($task, ['route' => 'tasks.store']) !!}
 
-        {!! Form::label('title', 'Title:') !!}
-        {!! Form::text('title') !!}
 
         {!! Form::label('content', 'TASK:') !!}
         {!! Form::text('content') !!}
+        
+        {!! Form::label('status', 'ステータス:') !!}
+        {!! Form::text('status') !!}
 
         {!! Form::submit('GO') !!}
 

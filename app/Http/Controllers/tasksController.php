@@ -46,12 +46,12 @@ class taskscontroller extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'status' => 'required|max:10',
             'content' => 'required|max:255',
         ]);
         $task = new task;
-        $task->title = $request->title;
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
 
         return redirect('/');
@@ -98,12 +98,12 @@ class taskscontroller extends Controller
     {
        
         $this->validate($request, [
-            'title' => 'required|max:255', 
+            'status' => 'required|max:10', 
             'content' => 'required|max:255',
         ]);
         $task = task::find($id);
-        $task->title = $request->title; 
         $task->content = $request->content;
+        $task->status = $request->status; 
         $task->save();
 
         return redirect('/');
