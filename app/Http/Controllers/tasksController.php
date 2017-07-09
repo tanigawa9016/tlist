@@ -18,7 +18,6 @@ class taskscontroller extends Controller
     public function index()
     {
         $tasks = task::all();
-
         return view('tasks.index', [
             'tasks' => $tasks,
         ]); //
@@ -46,7 +45,12 @@ class taskscontroller extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+        ]);
         $task = new task;
+        $task->title = $request->title;
         $task->content = $request->content;
         $task->save();
 
@@ -93,7 +97,12 @@ class taskscontroller extends Controller
     public function update(Request $request, $id)
     {
        
+        $this->validate($request, [
+            'title' => 'required|max:255', 
+            'content' => 'required|max:255',
+        ]);
         $task = task::find($id);
+        $task->title = $request->title; 
         $task->content = $request->content;
         $task->save();
 
