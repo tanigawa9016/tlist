@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\task;
 
+
 class taskscontroller extends Controller
 {
     /**
@@ -17,7 +18,9 @@ class taskscontroller extends Controller
      */
     public function index()
     {
-        $tasks = task::all();
+        
+        $user = \Auth::user();
+        $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
         return view('tasks.index', [
             'tasks' => $tasks,
         ]); //
@@ -66,6 +69,8 @@ class taskscontroller extends Controller
     public function show($id)
     {
         $task = task::find($id);
+        $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+        $count_tasks = $user->tasks()->count();
 
         return view('tasks.show', [
             'task' => $task,
@@ -123,4 +128,6 @@ class taskscontroller extends Controller
 
         return redirect('/');
     }
+    
+
 }
